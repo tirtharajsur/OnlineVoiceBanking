@@ -38,7 +38,7 @@ def take_command():
             engine.say('I am listening')
             print('listening...')
             listener.pause_threshold = 1
-            #listener.energy_threshold = 100
+            listener.energy_threshold = 450
             listener.adjust_for_ambient_noise(source)
             voice = listener.listen(source)
             print('able to listen')
@@ -137,16 +137,16 @@ def Complete_Flow():
         time.sleep(10)
         #FaceRecognization
         name = FaceRecognization.abc()
-        print("***********************")
-        print(name)
         if name == 'tirtharaj-sur':
             #driver.find_element_by_xpath("//input[@value='Submit']").click()
             driver.find_element_by_css_selector("input.btn.btn-success").click()
+            talk('Transaction is completed Successfully')
             time.sleep(8)
             talk('Transaction is completed Successfully')
             time.sleep(2)
             talk("Closing the browser")
             driver.quit()
+            
         
 
 
@@ -216,15 +216,17 @@ while True:
     command = take_command()
     if 'begin' in command:
         print("*****Inside Transaction******")
-        
         command = take_command()
-        while True:
-            time.sleep(2)   
+        while True:  
             talk("Do you want the transaction to be auto-performed?")
+            time.sleep(2) 
+            command = take_command()
             if "yes" in command:
                 Complete_Flow()
+                break
             elif "no" in command:
                 Step_By_Step_Flow()
+                break
             elif "Exit" in command:
                 talk("Declining the transaction flow and closing browser")
                 driver.quit()
@@ -243,8 +245,8 @@ while True:
         driver.get("https://rahulshettyacademy.com/angularpractice/")
         print(driver.title)
         print(driver.current_url) 
-        if 'play' in command:
-            song = command.replace('play', '')
+    elif 'play' in command:
+        song = command.replace('play', '')
         talk('playing' + song)
         print(song)
         pywhatkit.playonyt(song)
