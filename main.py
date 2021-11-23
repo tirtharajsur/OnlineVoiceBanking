@@ -12,12 +12,15 @@ from selenium import webdriver
 from selenium.webdriver.support.select import Select
 
 import FaceRecognization
+print("_____________________Start__________________")
 
 listener = sr.Recognizer()
 engine = txt.init()
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
 
+userName = FaceRecognization.abc().split('-')[0]
+engine.say("Hi "+userName)
 engine.say('I am HSBC Chat bot')
 engine.say('How can i help you?')
 engine.runAndWait()
@@ -52,30 +55,30 @@ def take_command():
     return command
 
 
-def run_hsbc():
-    command = take_command()
-    print(command)
-    if 'play' in command:
-        song = command.replace('play', '')
-        talk('playing' + song)
-        print(song)
-        pywhatkit.playonyt(song)
-    elif 'time' in command:
-        time = datetime.datetime.now().strftime('%H:%M:%S')
-        time1 = datetime.datetime.now().strftime('%I:%M %p')
-        talk(' Current time is ' + time)
-        talk(' Current time with am/pm is ' + time1)
-    elif 'search' in command:
-        info = wikipedia.summary(command, 1)
-        print(info)
-        talk(info)
-    elif 'joke' in command:
-        jokes = pyjokes.get_joke()
-        talk(jokes)
-        print(jokes)
+# def run_hsbc():
+#     command = take_command()
+#     print(command)
+#     if 'play' in command:
+#         song = command.replace('play', '')
+#         talk('playing' + song)
+#         print(song)
+#         pywhatkit.playonyt(song)
+#     elif 'time' in command:
+#         time = datetime.datetime.now().strftime('%H:%M:%S')
+#         time1 = datetime.datetime.now().strftime('%I:%M %p')
+#         talk(' Current time is ' + time)
+#         talk(' Current time with am/pm is ' + time1)
+#     elif 'search' in command:
+#         info = wikipedia.summary(command, 1)
+#         print(info)
+#         talk(info)
+#     elif 'joke' in command:
+#         jokes = pyjokes.get_joke()
+#         talk(jokes)
+#         print(jokes)
 
-    else:
-        talk('Sorry I cant understand. Can you please repeat')
+#     else:
+#         talk('Sorry I cant understand. Can you please repeat')
 
 
 def run_hsbc_ForXpath():
@@ -141,8 +144,10 @@ def Complete_Flow():
             driver.find_element_by_css_selector("input.btn.btn-success").click()
             time.sleep(8)
             talk('Transaction is completed Successfully')
-            time.sleep(8)
-        driver.quit()
+            time.sleep(2)
+            talk("Closing the browser")
+            driver.quit()
+        
 
 
 # while True:
@@ -206,6 +211,7 @@ def Step_By_Step_Flow():
 # //label[text()='Employed']/preceding-sibling::input[@name='inlineRadioOptions']
 while True:
     command = ""
+    time.sleep(2)
     talk("How can I help you?")
     command = take_command()
     if 'begin' in command:
@@ -225,16 +231,36 @@ while True:
                 break
             else:
                 talk("Sorry, Could not understand your command. Could you please repeat?")
-    elif 'quit' in command:
+    elif 'close' in command:
         talk("Closing the application. Have a great day!")
-        driver.quit()
+        if driver.session_id != None:
+            print("Closing the session: "+driver.session_id)
+            driver.quit()
         break
     elif 'open' in command:
         driver = webdriver.Chrome(executable_path="WebDrivers/chromedriver.exe")
         driver.maximize_window()
         driver.get("https://rahulshettyacademy.com/angularpractice/")
         print(driver.title)
-        print(driver.current_url)   
+        print(driver.current_url) 
+        if 'play' in command:
+            song = command.replace('play', '')
+        talk('playing' + song)
+        print(song)
+        pywhatkit.playonyt(song)
+    elif 'time' in command:
+        time = datetime.datetime.now().strftime('%H:%M:%S')
+        time1 = datetime.datetime.now().strftime('%I:%M %p')
+        talk(' Current time is ' + time)
+        talk(' Current time with am/pm is ' + time1)
+    elif 'search' in command:
+        info = wikipedia.summary(command, 1)
+        print(info)
+        talk(info)
+    elif 'joke' in command:
+        jokes = pyjokes.get_joke()
+        talk(jokes)
+        print(jokes)  
     else:
         talk("Sorry, Could not understand your command. Could you please repeat?")
             
