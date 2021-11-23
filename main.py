@@ -29,12 +29,14 @@ def talk(text):
 
 
 def take_command():
+    command=""
     try:
         with sr.Microphone() as source:
             engine.say('I am listening')
             print('listening...')
             listener.pause_threshold = 1
-            listener.energy_threshold = 300
+            #listener.energy_threshold = 100
+            listener.adjust_for_ambient_noise(source)
             voice = listener.listen(source)
             print('able to listen')
             engine.say('able to listen')
@@ -104,7 +106,8 @@ def run_hsbc_ForXpath():
         print(variableName1)
         return variableName1
     elif 'submit' in command:
-        variableName1 = "//input[@class='btn btn-success']"
+        #variableName1 = "//input[@class='btn btn-success']"
+        variableName1 = "input.btn.btn-success"
         print(variableName1)
         return variableName1
 
@@ -115,9 +118,9 @@ def run_hsbc_ForXpath():
 
 def Complete_Flow():
     if 'completeFlow' == 'completeFlow':
-        driver.find_element_by_name('name').send_keys("Abhimanyu")
+        driver.find_element_by_name('name').send_keys("Tirtharaj")
         time.sleep(2)
-        driver.find_element_by_name('email').send_keys("Abhimanyu@gmail.com")
+        driver.find_element_by_name('email').send_keys("tirtharaj@gmail.com")
         time.sleep(2)
         driver.find_element_by_id('exampleInputPassword1').send_keys("abcd")
         time.sleep(2)
@@ -129,69 +132,111 @@ def Complete_Flow():
         time.sleep(2)
         # driver.find_element_by_id("//input[@type='date']").send_keys("11-05-1993")
         time.sleep(10)
-        FaceRecognization
+        #FaceRecognization
         name = FaceRecognization.abc()
-        if name == 'abhimanyu':
-            driver.find_element_by_xpath("//input[@value='Submit']").click()
+        print("***********************")
+        print(name)
+        if name == 'tirtharaj-sur':
+            #driver.find_element_by_xpath("//input[@value='Submit']").click()
+            driver.find_element_by_css_selector("input.btn.btn-success").click()
             time.sleep(8)
             talk('Transaction is completed Successfully')
             time.sleep(8)
+        driver.quit()
 
 
 # while True:
 # run_hsbc_ForXpath()
 
-driver = webdriver.Chrome(executable_path="WebDrivers/chromedriver.exe")
-driver.maximize_window()
-driver.get("https://rahulshettyacademy.com/angularpractice/")
-print(driver.title)
-print(driver.current_url)
-
 #Complete_Flow()
 
-time.sleep(2)
-print("Calling voice method")
-variableName = run_hsbc_ForXpath()
-time.sleep(2)
-print("going to enter the name" + variableName)
-driver.find_element_by_name(variableName).send_keys("Abhimanyu")
-time.sleep(2)
-print("Calling voice method")
-variableName = run_hsbc_ForXpath()
-time.sleep(2)
-print("going to enter the email" + variableName)
-driver.find_element_by_name(variableName).send_keys("Abhimanyu@gmail.com")
-time.sleep(2)
-print("Calling voice method")
-variableName = run_hsbc_ForXpath()
-time.sleep(2)
-print("going to enter the password" + variableName)
-driver.find_element_by_id(variableName).send_keys("abcd")
-time.sleep(2)
-print("Calling voice method")
-variableName = run_hsbc_ForXpath()
-time.sleep(2)
-print("going to enter the icecream" + variableName)
-driver.find_element_by_xpath(variableName).click()
-# time.sleep(2)
-# print("Calling voice method")
-# variableName = run_hsbc_ForXpath()
-# time.sleep(2)
-# print("going to enter the gender" + variableName)
-# select = Select(driver.find_element_by_xpath(variableName))
-# select.select_by_visible_text("Male")
-time.sleep(2)
-print("Calling voice method")
-variableName = run_hsbc_ForXpath()
-time.sleep(2)
-print("going to enter the employment Status" + variableName)
-driver.find_element_by_xpath(variableName).click()
-time.sleep(2)
-print("Calling voice method")
-variableName = run_hsbc_ForXpath()
-time.sleep(2)
-print("going to enter the name" + variableName)
-driver.find_element_by_id(variableName).send_keys("11-05-1993")
-driver.implicitly_wait(5000)
+def Step_By_Step_Flow():    
+    time.sleep(2)
+    print("Calling voice method")
+    variableName = run_hsbc_ForXpath()
+    time.sleep(2)
+    print("going to enter the name" + variableName)
+    driver.find_element_by_name(variableName).send_keys("Tirtharaj")
+    time.sleep(2)
+    print("Calling voice method")
+    variableName = run_hsbc_ForXpath()
+    time.sleep(2)
+    print("going to enter the email" + variableName)
+    driver.find_element_by_name(variableName).send_keys("tirtharaj@gmail.com")
+    time.sleep(2)
+    print("Calling voice method")
+    variableName = run_hsbc_ForXpath()
+    time.sleep(2)
+    print("going to enter the password" + variableName)
+    driver.find_element_by_id(variableName).send_keys("abcd")
+    time.sleep(2)
+    print("Calling voice method")
+    variableName = run_hsbc_ForXpath()
+    time.sleep(2)
+    print("going to enter the icecream" + variableName)
+    driver.find_element_by_xpath(variableName).click()
+    # time.sleep(2)
+    # print("Calling voice method")
+    # variableName = run_hsbc_ForXpath()
+    # time.sleep(2)
+    # print("going to enter the gender" + variableName)
+    # select = Select(driver.find_element_by_xpath(variableName))
+    # select.select_by_visible_text("Male")
+    time.sleep(2)
+    print("Calling voice method")
+    variableName = run_hsbc_ForXpath()
+    time.sleep(2)
+    print("going to enter the employment Status" + variableName)
+    driver.find_element_by_xpath(variableName).click()
+    time.sleep(2)
+    print("Calling voice method ")
+    variableName = run_hsbc_ForXpath()
+    time.sleep(2)
+    print("going to enter the name " + variableName)
+    driver.find_element_by_id(variableName).send_keys("11-05-1993")
+
+    time.sleep(2)
+    print("CLicking on Submit " + variableName)
+    driver.find_element_by_xpath(variableName).click()
+
+    driver.implicitly_wait(5000)
+    driver.quit()
+
 
 # //label[text()='Employed']/preceding-sibling::input[@name='inlineRadioOptions']
+while True:
+    command = ""
+    talk("How can I help you?")
+    command = take_command()
+    if 'begin' in command:
+        print("*****Inside Transaction******")
+        
+        command = take_command()
+        while True:
+            time.sleep(2)   
+            talk("Do you want the transaction to be auto-performed?")
+            if "yes" in command:
+                Complete_Flow()
+            elif "no" in command:
+                Step_By_Step_Flow()
+            elif "Exit" in command:
+                talk("Declining the transaction flow and closing browser")
+                driver.quit()
+                break
+            else:
+                talk("Sorry, Could not understand your command. Could you please repeat?")
+    elif 'quit' in command:
+        talk("Closing the application. Have a great day!")
+        driver.quit()
+        break
+    elif 'open' in command:
+        driver = webdriver.Chrome(executable_path="WebDrivers/chromedriver.exe")
+        driver.maximize_window()
+        driver.get("https://rahulshettyacademy.com/angularpractice/")
+        print(driver.title)
+        print(driver.current_url)   
+    else:
+        talk("Sorry, Could not understand your command. Could you please repeat?")
+            
+        
+    

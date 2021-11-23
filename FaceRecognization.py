@@ -16,7 +16,7 @@ with open("labels.pickle", 'rb') as f:
 cap = cv2.VideoCapture(0)
 name = 'aa'
 
-while name != 'abhimanyu' or name == 'aa':
+while name != 'tirtharaj-sur' or name == 'aa':
     # Capture frame by frame
     name = '1'
     ret, frame = cap.read()
@@ -29,14 +29,14 @@ while name != 'abhimanyu' or name == 'aa':
 
         # recognize using ML with deep learning model and predict using keras tensor flow pytorch scikit
         id_, conf = recognizer.predict(roi_gray)
-        if 75 <= conf <= 100:
+        if 50 <= conf <= 100:
             print(id_)
             if labels[id_] == 'nikolaj-coster-waldau':
-                labels[id_] = 'abhimanyu';
+                labels[id_] = 'tirtharaj';
             print(labels[id_])
 
-            if labels[id_] == 'abhimanyu':
-                name = 'abhimanyu'
+            if labels[id_] == 'tirtharaj':
+                name = 'tirtharaj'
 
             font = cv2.FONT_HERSHEY_COMPLEX
             name = labels[id_]
